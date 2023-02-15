@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.wst.wst_pos'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.wst.wst_pos"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation('androidx.core:core:1.7.0') {
+        exclude group: 'com.android.support', module: 'support-compat'
+    }
+
+    implementation('androidx.appcompat:appcompat:1.6.1') {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+        exclude group: 'com.android.support', module: 'support-core-ui'
+    }
+
+    implementation('com.google.android.material:material:1.8.0') {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-fragment'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+        exclude group: 'com.android.support', module: 'support-core-ui'
+    }
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //loading animation
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    // Zxing library
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+}
