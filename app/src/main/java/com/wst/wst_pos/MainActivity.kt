@@ -1,6 +1,7 @@
 package com.wst.wst_pos
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
@@ -47,6 +48,9 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, ZXingScannerVi
         // Handle the result here, for example, you can display the text from the QR code
         val text = rawResult?.text
         Toast.makeText(this, "QR Code Text: $text", Toast.LENGTH_LONG).show()
+        val intent = Intent(this@MainActivity, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
 
         // Resume scanning after a short delay to allow the user to read the text
         Handler(Looper.getMainLooper()).postDelayed({ scannerView.resumeCameraPreview(this) }, 2000)

@@ -26,22 +26,7 @@
             app:menu="@menu/navdrawer_menu"
             app:headerLayout="@layout/nav_header"
             />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:padding="8dp">
-            <ImageButton
-                android:id="@+id/barcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/barcode" />
-            <ImageButton
-                android:id="@+id/cart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cart" />
-        </LinearLayout>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
+
+

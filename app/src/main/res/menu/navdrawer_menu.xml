@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/home"
+        android:icon="@drawable/home"
+        android:title="Home"/>
+    <item android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"/>
+    <item android:id="@+id/customers"
+        android:icon="@drawable/customers"
+        android:title="Customers"/>
+    <item android:id="@+id/product"
+        android:icon="@drawable/product"
+        android:title="Product"/>
+    <item android:id="@+id/returned"
+        android:icon="@drawable/returned"
+        android:title="Returned"/>
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Logout" />
+
 </menu>
