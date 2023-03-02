@@ -13,37 +13,42 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.zxing.Result
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+
 
 
 class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, ZXingScannerView.ResultHandler {
 
     private val CAMERA_PERMISSION_CODE = 1001
-    private var cameraPermissionGranted = false
-    private var surfaceCreated = false
     private lateinit var scannerView: ZXingScannerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         scannerView = ZXingScannerView(this)
         setContentView(scannerView)
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            cameraPermissionGranted = true
-        } else {
-            requestCameraPermission()
-        }
     }
+
     override fun onResume() {
         super.onResume()
-        scannerView.setResultHandler(this)
-        scannerView.startCamera()
+        lifecycleScope.launch {
+            if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                startCamera()
+            } else {
+                requestCameraPermission()
+            }
+        }
     }
+
     override fun onPause() {
         super.onPause()
         scannerView.stopCamera()
     }
+
     override fun handleResult(rawResult: Result?) {
         // Handle the result here, for example, you can display the text from the QR code
         val text = rawResult?.text
@@ -51,10 +56,8 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, ZXingScannerVi
         val intent = Intent(this@MainActivity, HomeActivity::class.java)
         startActivity(intent)
         finish()
-
-        // Resume scanning after a short delay to allow the user to read the text
-        Handler(Looper.getMainLooper()).postDelayed({ scannerView.resumeCameraPreview(this) }, 2000)
     }
+
     private fun requestCameraPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             AlertDialog.Builder(this)
@@ -71,37 +74,37 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, ZXingScannerVi
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
         }
     }
-    private fun startScanning() {
-        scannerView.setBackgroundColor(Color.WHITE) // set background color
+
+    private fun startCamera() {
         scannerView.setResultHandler(this)
-        setContentView(scannerView)
+        scannerView.startCamera()
     }
-    private var isPermissionGranted = false
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             CAMERA_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isPermissionGranted = true
-
-                    if (surfaceCreated) {
-                        startScanning()
-                    }
+                    startCamera()
                 } else {
                     Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-    override fun surfaceCreated(holder: SurfaceHolder) {
-        surfaceCreated = true
 
-        if (isPermissionGranted) {
-            startScanning()
-        }
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        // No need to implement anything here
     }
-    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        // No need to implement anything here
+    }
+
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        surfaceCreated = false
+        // No need to implement anything here
     }
 }
+
+
+
