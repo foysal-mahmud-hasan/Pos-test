@@ -17,8 +17,7 @@
     <item android:id="@+id/returned"
         android:icon="@drawable/returned"
         android:title="Returned"/>
-    <item
-        android:id="@+id/logout"
+    <item android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Logout" />
 
