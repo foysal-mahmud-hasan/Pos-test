@@ -30,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityHomeBinding>(this, R.layout.activity_home)
+        setSupportActionBar(binding.toolbar) // Set the Toolbar as the ActionBar
         drawerLayout = binding.drawerLayout
         navigationView = binding.navView
 
@@ -37,30 +38,6 @@ class HomeActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
-
-        // Set up nav drawer
-//        navigationView.setNavigationItemSelectedListener { item: MenuItem ->
-//            // handle menu item clicks
-//            when (item.itemId) {
-//                R.id.menu_item1 -> {
-//                    // handle menu item 1
-//                    true
-//                }
-//                R.id.menu_item2 -> {
-//                    // handle menu item 2
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-
-        // Set up image buttons
-//        binding.imgBtnBarcode.setOnClickListener {
-//            // handle image button 1 click
-//        }
-//        binding.imgBtnCart.setOnClickListener {
-//            // handle image button 2 click
-//        }
 
         // Lock the drawer on the start destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
