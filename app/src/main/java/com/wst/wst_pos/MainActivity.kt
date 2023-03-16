@@ -39,12 +39,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.btnLogin.setOnClickListener {
+            // Get the InputMethodManager
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            // Hide the soft keyboard
+            imm.hideSoftInputFromWindow(binding.btnLogin.windowToken, 0)
             if(binding.etUsername.text.toString().isEmpty() || binding.etUserpassword.text.toString().isEmpty()){
                 Toast.makeText(this, "Please input username/password", Toast.LENGTH_SHORT).show()
             }else{
                 for (user in users){
                     if(user.userName == binding.etUsername.text.toString() && user.password == binding.etUserpassword.text.toString()){
                         binding.contentLayout.visibility = View.GONE
+                        binding.loadingLogo.visibility = View.VISIBLE
                         binding.loadingAnimation.visibility = View.VISIBLE
                         handler.postDelayed({
                             val intent = Intent(this, HomeActivity::class.java)

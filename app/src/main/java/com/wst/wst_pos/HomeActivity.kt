@@ -1,19 +1,10 @@
 package com.wst.wst_pos
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.PersistableBundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.ImageButton
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
@@ -37,7 +28,6 @@ class HomeActivity : AppCompatActivity() {
         // Set up navigation controller
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        NavigationUI.setupWithNavController(binding.navView, navController)
 
         // Lock the drawer on the start destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -47,6 +37,7 @@ class HomeActivity : AppCompatActivity() {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
         }
+        NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
