@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.wst.wst_pos.R
 
+@Suppress("DEPRECATION")
 class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
