@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.wst.wst_pos.sellPage.SellViewModel" />
     </data>
 
     <LinearLayout
@@ -11,26 +14,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
+            app:searchIcon="@drawable/search"
+            android:background="@drawable/search_background"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:queryHint="Search Products" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/categoryRecyclerView"
+            tools:listitem="@layout/horizontal_list_item"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal"
-            android:padding="10dp" />
+            android:padding="5dp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:clipToPadding="false"
             android:id="@+id/productRecyclerView"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:layout_width="match_parent"
-            android:padding="10dp"
+            android:layout_margin="1dp"
             android:layout_height="0dp"
             android:layout_weight="1"
+            app:spanCount="2"
+            tools:itemCount="16"
+            tools:listitem="@layout/grid_view_item"
             android:numColumns="2" />
 
     </LinearLayout>
